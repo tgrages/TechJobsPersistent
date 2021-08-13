@@ -8,36 +8,44 @@ using TechJobsPersistent.Models;
 
 namespace TechJobsPersistent.ViewModels
 {
-	public class AddJobViewModel
-	{
-		[Required(ErrorMessage = "Name is required.")]
-		[StringLength(50, MinimumLength = 3, ErrorMessage = "Name must be between 3 and 50 characters")]
-		public string Name { get; set; }
+    public class AddJobViewModel
+    {
+        [Required(ErrorMessage = "A Name is required")]
+        public string Name { get; set; }
 
-		[Required(ErrorMessage = "Employer is required")]
-		public int Id { get; set; }
+        public int EmployerId { get; set; }
 
-		public List<SelectListItem> Employers { get; set; }
+        public List<SelectListItem> Employers { get; set; }
 
-		public AddJobViewModel(List<Employer> employers)
-		{
-			Employers = new List<SelectListItem>();
+        public List<Skill> Skills { get; set; }
 
-			foreach (var item in employers)
-			{
-				Employers.Add(
-					new SelectListItem
-					{
-						Value = item.Id.ToString(),
-						Text = item.Name
-					}
-				); ;
-			}
-		}
 
-		public AddJobViewModel()
-		{
-		}
+        public AddJobViewModel() { }
 
-	}
+        public AddJobViewModel(List<Employer> employers, List<Skill> skills)
+            : this()
+        {
+            this.Skills = skills;
+
+            this.createSelectListItems(employers);
+
+        }
+
+        public void createSelectListItems(List<Employer> employers)
+        {
+            this.Employers = new List<SelectListItem>();
+
+            foreach (Employer employer in employers)
+            {
+                this.Employers.Add(
+                    new SelectListItem
+                    {
+                        Value = employer.Id.ToString(),
+                        Text = employer.Name
+                    });
+            }
+        }
+    }
 }
+
+

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TechJobsPersistent.Models
+namespace TechJobsPersistent.ViewModels
 {
 	public class AddEmployerViewModel
 	{
